@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvData"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="#646AFB"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="数据"
+        android:textColor="#ffffff"
+        android:textSize="12sp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_weight="1" />
+
+    <TextView
+        android:id="@+id/tvGetObject"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="10dp"
+        android:background="#16B0DC"
+        android:gravity="center"
+        android:textColor="#ffffff"
+        android:text="GetObject" />
+
+    <TextView
+        android:id="@+id/tvGetList"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="10dp"
+        android:background="#16B0DC"
+        android:gravity="center"
+        android:textColor="#ffffff"
+        android:text="GetList" />
+
+    <TextView
+        android:id="@+id/tvSwitchUrl"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="10dp"
+        android:background="#16B0DC"
+        android:gravity="center"
+        android:textColor="#ffffff"
+        android:text="切换BaseUrl"/>
+
+    <TextView
+        android:id="@+id/tvRxjava"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="10dp"
+        android:background="#16B0DC"
+        android:gravity="center"
+        android:textColor="#ffffff"
+        android:text="RxJava请求" />
+</LinearLayout>
