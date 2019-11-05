@@ -1,13 +1,13 @@
 package com.chaomeng.androidframework
 
 import com.chaomeng.http.OkHttpRequest
-import com.chaomeng.http.RequestManager
+import com.chaomeng.http.RequestFactroy
 
-class RequestManagerImpl private constructor(): RequestManager<OkHttpRequest> {
+class RequestManager private constructor(): RequestFactroy<OkHttpRequest> {
 
     companion object {
-        private val instance: RequestManagerImpl by lazy {
-            RequestManagerImpl()
+        private val instance: RequestManager by lazy {
+            RequestManager()
         }
 
         fun get() = instance

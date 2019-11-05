@@ -6,7 +6,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.chaomeng.androidframework.R
-import com.chaomeng.androidframework.RequestManagerImpl
+import com.chaomeng.androidframework.RequestManager
 import com.chaomeng.androidframework.bean.MusicStation
 import com.chaomeng.http.BaseResponse
 import com.chaomeng.http.DownloadListener
@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        RequestManagerImpl.get().createRequest()
+        RequestManager.get().createRequest()
             .setType<BaseResponse<List<MusicStation>>>()
             .get("https://api.apiopen.top/musicBroadcasting", response = object: HttpResponse<BaseResponse<List<MusicStation>>>() {
 
@@ -77,7 +77,7 @@ class MainActivity : AppCompatActivity() {
         if (!file.exists()) {
             file.createNewFile()
         }
-        RequestManagerImpl.get().createRequest()
+        RequestManager.get().createRequest()
             .download("http://oss.pgyer.com/df1e7fee335874fb6a7098de88613dee.apk?auth_key=1572487826-844bb491e794c7bd1545ff53fa73e4a6-0-fdf7e69ac83e201ce2e9edec218cf21e&response-content-disposition=attachment%3B+filename%3Dcmvip-prod-release-v1.1.0-110-7453f9c1.apk",
                 file, object: DownloadListener {
                     override fun onDownloadIng(progressValue: Long, maxValue: Long) {
@@ -105,7 +105,7 @@ class MainActivity : AppCompatActivity() {
             file.createNewFile()
         }
         val mediaType = MediaType.parse("application/octet-stream")
-        RequestManagerImpl.get().createRequest()
+        RequestManager.get().createRequest()
             .upload("http://t.xinhuo.com/index.php/Api/Pic/uploadPic", file, mediaType!!, object:
                 UploadListener {
                 override fun onUploadIng(progressValue: Long, maxValue: Long) {

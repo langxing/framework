@@ -1,6 +1,6 @@
 package com.chaomeng.http
 
-interface RequestManager<T: IRequest> {
+interface RequestFactroy<T: IRequest> {
 
     fun createRequest(): T
 
