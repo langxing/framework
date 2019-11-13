@@ -7,6 +7,7 @@ import com.chaomeng.androidframework.bean.ArticleBean
 import com.chaomeng.androidframework.bean.Banner
 import com.chaomeng.androidframework.bean.Category
 import com.chaomeng.androidframework.bean.ProjectBean
+import com.chaomeng.androidframework.bean.SystemBean
 import com.chaomeng.androidframework.common.BaseViewModel
 import com.chaomeng.androidframework.http.Response
 import com.chaomeng.androidframework.http.ResponseCallback
@@ -14,6 +15,7 @@ import com.chaomeng.androidframework.http.ResponseCallback
 class MainViewModel(private val lifecycleOwner: LifecycleOwner) : BaseViewModel(lifecycleOwner) {
 
     val bannerList = MutableLiveData<List<Banner>>()
+    val systemList = MutableLiveData<List<SystemBean>>()
     val categoryList = MutableLiveData<List<Category>>()
     val projectList = MutableLiveData<List<ProjectBean.Project>>()
     val articleList = MutableLiveData<List<ArticleBean.Article>>()
@@ -75,6 +77,22 @@ class MainViewModel(private val lifecycleOwner: LifecycleOwner) : BaseViewModel(
                 override fun onSuccess(data: Response<ProjectBean>?) {
                     data?.let {
                         projectList.postValue(it.data.datas)
+                    }
+                }
+
+            })
+    }
+
+    fun querySystem() {
+        val url = "https://www.wanandroid.com/tree/json"
+        RequestManager.get()
+            .getRequest()
+            .bindLifecycle(lifecycleOwner)
+            .setType<Response<List<SystemBean>>>()
+            .get(url, object: ResponseCallback<Response<List<SystemBean>>>() {
+                override fun onSuccess(data: Response<List<SystemBean>>?) {
+                    data?.let {
+                        systemList.postValue(it.data)
                     }
                 }
 
