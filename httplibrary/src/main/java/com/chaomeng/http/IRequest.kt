@@ -1,5 +1,6 @@
 package com.chaomeng.http
 
+import com.chaomeng.common.DownloadListener
 import okhttp3.MediaType
 import java.io.File
 

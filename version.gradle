@@ -36,6 +36,10 @@ def versions = [
                 lifecycleVersion        : '2.0.0',
                 glideVersion            : '4.10.0',
                 recyclerviewVersion     : '1.0.0',
+                ankoVersion             : '0.10.8',
+                bannerVersion           : '1.4.10',
+                refreshLayoutVersion    : '1.1.0',
+                lifecycleVersion        : '2.1.0',
                 gradlePlugins           : 'com.android.tools.build:gradle:3.5.0',
                 kotlinGradlePlugin      : "org.jetbrains.kotlin:kotlin-gradle-plugin$kotlinVersion"
         ]

@@ -1,4 +1,4 @@
-package com.chaomeng.androidframework.ui
+package com.chaomeng.androidframework.ui.test
 
 import android.annotation.SuppressLint
 import android.os.Bundle

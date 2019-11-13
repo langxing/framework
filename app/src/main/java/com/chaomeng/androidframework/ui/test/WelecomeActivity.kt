@@ -1,4 +1,4 @@
-package com.chaomeng.androidframework.ui
+package com.chaomeng.androidframework.ui.test
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -14,7 +14,7 @@ class WelecomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_welecome)
         tvOkHTTP.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, OkhttpActivity::class.java)
             startActivity(intent)
         }
         tvRetrofit.setOnClickListener {

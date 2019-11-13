@@ -13,7 +13,7 @@ class RequestManager private constructor(): RequestFactroy<OkHttpRequest> {
         fun get() = instance
     }
 
-    override fun createRequest(): OkHttpRequest {
+    override fun getRequest(): OkHttpRequest {
         return OkHttpRequest.get()
     }
 

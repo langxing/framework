@@ -1,4 +1,4 @@
-package com.chaomeng.http
+package com.chaomeng.common
 
 interface DownloadListener {
 

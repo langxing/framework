@@ -3,6 +3,7 @@ package com.chaomeng.androidframework
 import com.chaomeng.HttpModule
 import android.app.Application
 import com.chaomeng.androidframework.utils.CacheManager
+import com.chaomeng.androidframework.utils.ImageLoader
 import com.chaomeng.http.OkHttpRequest
 import com.chaomeng.retrofit.HttpBuilder
 import com.chaomeng.retrofit.RetrofitManager

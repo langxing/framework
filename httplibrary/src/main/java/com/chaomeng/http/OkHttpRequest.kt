@@ -9,8 +9,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.OnLifecycleEvent
 import com.chaomeng.HttpModule
+import com.chaomeng.common.DownloadListener
 import com.chaomeng.utils.NetworkManager
 import com.google.gson.reflect.TypeToken
 import okhttp3.*
@@ -55,6 +57,11 @@ class OkHttpRequest private constructor() : IRequest, LifecycleObserver {
     fun bindLifecycle(fragment: Fragment): OkHttpRequest {
         fragment.lifecycle.addObserver(this)
         return this
+    }
+
+    fun bindLifecycle(lifecycleOwner: LifecycleOwner): OkHttpRequest {
+        lifecycleOwner.lifecycle.addObserver(this)
+       return this
     }
 
     fun bindLifecycle(view: View): OkHttpRequest {

@@ -9,49 +9,7 @@ import androidx.databinding.ObservableList
 import androidx.recyclerview.widget.RecyclerView
 import com.chaomeng.androidframework.bean.Meitu
 
-class MeituAdapter(private val data: ObservableList<Meitu>) : BaseAdapter() {
-
-    init {
-        data.addOnListChangedCallback(object: ObservableList.OnListChangedCallback<ObservableList<Meitu>>() {
-            override fun onChanged(sender: ObservableList<Meitu>?) {
-                notifyDataSetChanged()
-            }
-
-            override fun onItemRangeRemoved(
-                sender: ObservableList<Meitu>?,
-                positionStart: Int,
-                itemCount: Int
-            ) {
-                notifyItemRangeRemoved(positionStart, itemCount)
-            }
-
-            override fun onItemRangeMoved(
-                sender: ObservableList<Meitu>?,
-                fromPosition: Int,
-                toPosition: Int,
-                itemCount: Int
-            ) {
-                notifyItemMoved(fromPosition, toPosition)
-            }
-
-            override fun onItemRangeInserted(
-                sender: ObservableList<Meitu>?,
-                positionStart: Int,
-                itemCount: Int
-            ) {
-                notifyItemRangeInserted(positionStart, itemCount)
-            }
-
-            override fun onItemRangeChanged(
-                sender: ObservableList<Meitu>?,
-                positionStart: Int,
-                itemCount: Int
-            ) {
-                notifyItemRangeChanged(positionStart, itemCount)
-            }
-
-        })
-    }
+class MeituAdapter(private val list: ObservableList<Meitu>) : BaseAdapter<Meitu>(list) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val textView = TextView(parent.context)
@@ -69,6 +27,6 @@ class MeituAdapter(private val data: ObservableList<Meitu>) : BaseAdapter() {
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        (holder.itemview as TextView).text = data[position].toString()
+        (holder.itemview as TextView).text = list[position].toString()
     }
 }
