@@ -7,12 +7,22 @@ import com.chaomeng.common.HttpCode
 import com.google.gson.JsonParseException
 import org.json.JSONException
 import retrofit2.HttpException
+import retrofit2.Response
 import java.lang.RuntimeException
 import java.net.ConnectException
 import java.net.UnknownHostException
 import java.text.ParseException
 
 abstract class AbsTaskCallback<T> : TaskCallback<T> {
+
+    override fun onResponse(response: Response<T>) {
+        val httpCode = response.code()
+        if (httpCode == 200) {
+            onSuccess(response.body())
+        } else {
+            onError(HttpCode.mapIntValue(httpCode), null, response.message())
+        }
+    }
 
     override fun onError(t: Throwable) {
         if(t is JsonParseException || t is JSONException || t is ParseException) {

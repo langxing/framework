@@ -131,7 +131,7 @@ class OkHttpRequest private constructor() : IRequest, LifecycleObserver {
             call.enqueue(object: Callback {
                 override fun onFailure(call: Call, e: IOException) {
                     handler.post {
-                        response.onFailed("-1", e.message)
+                        response.onFailed(code = "-1", msg = e.message)
                     }
                 }
 
@@ -177,7 +177,7 @@ class OkHttpRequest private constructor() : IRequest, LifecycleObserver {
             call.enqueue(object: Callback {
                 override fun onFailure(call: Call, e: IOException) {
                     handler.post {
-                        response.onFailed("-1", e.message)
+                        response.onFailed(code = "-1", msg = e.message)
                     }
                 }
 
@@ -223,7 +223,7 @@ class OkHttpRequest private constructor() : IRequest, LifecycleObserver {
             call.enqueue(object: Callback {
                 override fun onFailure(call: Call, e: IOException) {
                     handler.post {
-                        response.onFailed("-1", e.message)
+                        response.onFailed(code = "-1", msg = e.message)
                     }
                 }
 
@@ -269,7 +269,7 @@ class OkHttpRequest private constructor() : IRequest, LifecycleObserver {
             call.enqueue(object: Callback {
                 override fun onFailure(call: Call, e: IOException) {
                     handler.post {
-                        response.onFailed("-1", e.message)
+                        response.onFailed(code = "-1", msg = e.message)
                     }
                 }
 

@@ -13,6 +13,6 @@ interface IResponse<T> {
 
     fun onResponse(data: Response, type: Type)
 
-    fun onFailed(code: String? = "0", msg: String? = "")
+    fun onFailed(response: Response? = null, code: String? = "0", msg: String? = "")
 
 }

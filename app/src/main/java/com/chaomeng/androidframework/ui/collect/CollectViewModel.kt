@@ -25,7 +25,11 @@ class CollectViewModel(private val lifecycleOwner: LifecycleOwner) : BaseViewMod
                     object: ResponseCallback<Response<ProjectBean>>() {
                         override fun onSuccess(data: Response<ProjectBean>?) {
                             data?.let {
-                                projectList.postValue(data.data.datas)
+                                if (data.errorCode == "0") {
+                                    projectList.postValue(data.data.datas)
+                                } else {
+                                    onFailed(msg = data.errorMsg)
+                                }
                             }
                         }
                 })

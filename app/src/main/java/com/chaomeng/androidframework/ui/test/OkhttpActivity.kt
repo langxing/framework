@@ -11,6 +11,7 @@ import com.chaomeng.androidframework.bean.MusicStation
 import com.chaomeng.androidframework.http.BaseResponse
 import com.chaomeng.common.DownloadListener
 import com.chaomeng.androidframework.http.HttpResponse
+import com.chaomeng.http.AbsResponse
 import com.chaomeng.http.UploadListener
 import com.hjq.permissions.OnPermission
 import com.hjq.permissions.XXPermissions
