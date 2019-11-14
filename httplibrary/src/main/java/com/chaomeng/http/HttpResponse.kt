@@ -9,6 +9,7 @@ import com.chaomeng.jsondeserializer.*
 import com.chaomeng.retrofit.HttpState
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import okhttp3.Response
 import java.lang.Exception
 import java.lang.reflect.Type
 
@@ -40,7 +41,8 @@ abstract class HttpResponse<T: BaseResponse<*>> : IResponse<T> {
         }
     }
 
-    override fun onResponse(data: String?, type: Type) {
+    override fun onResponse(response: Response, type: Type) {
+        val data = response.body()?.string()
         if (data?.isNotEmpty() == true) {
             val state = gson.fromJson(data, HttpState::class.java)
             if (state.code != "200") {

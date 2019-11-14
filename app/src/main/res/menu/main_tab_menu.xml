@@ -10,7 +10,7 @@
     <item android:id="@+id/tabSystem"
         android:icon="@drawable/selector_tab_system"
         android:title="体系"/>
-    <item android:id="@+id/tabNavigation"
-        android:icon="@drawable/selector_tab_navigation"
-        android:title="导航"/>
+<!--    <item android:id="@+id/tabNavigation"-->
+<!--        android:icon="@drawable/selector_tab_navigation"-->
+<!--        android:title="导航"/>-->
 </menu>

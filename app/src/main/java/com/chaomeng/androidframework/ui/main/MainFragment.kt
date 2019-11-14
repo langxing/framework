@@ -1,5 +1,6 @@
 package com.chaomeng.androidframework.ui.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,18 +10,24 @@ import androidx.databinding.ObservableList
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chaomeng.androidframework.R
 import com.chaomeng.androidframework.adapter.BaseAdapter
 import com.chaomeng.androidframework.bean.ArticleBean
 import com.chaomeng.androidframework.bean.Banner
+import com.chaomeng.androidframework.bean.LoginInfo
+import com.chaomeng.androidframework.common.Constant
 import com.chaomeng.androidframework.common.ViewModelFactory
+import com.chaomeng.androidframework.ui.collect.CollectActivity
+import com.chaomeng.androidframework.ui.login.LoginActivity
+import com.chaomeng.androidframework.utils.CacheManager
 import kotlinx.android.synthetic.main.fragment_main.*
 
 class MainFragment : Fragment() {
 
     private var mPageIndex = 0
+    private var cookie: String? = null
+    private var loginInfo: LoginInfo? = null
     private var articleList = ObservableArrayList<ArticleBean.Article>()
     private val model: MainViewModel by lazy {
         ViewModelProviders.of(this, ViewModelFactory(this)).get(MainViewModel::class.java)
@@ -34,6 +41,12 @@ class MainFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_main, container, false)
     }
 
+    override fun onResume() {
+        super.onResume()
+        cookie = CacheManager.get().getString(Constant.KEY_COOKIE)
+        loginInfo = CacheManager.get().getObject<LoginInfo>(Constant.KEY_LOGININFO)
+        tvAccount.text = if (cookie.isNullOrEmpty()) "未登录" else loginInfo?.phone
+    }
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         model.queryData()
@@ -59,6 +72,20 @@ class MainFragment : Fragment() {
         }
         refreshLayout.setOnLoadMoreListener {
             model.queryData(mPageIndex)
+        }
+        tvAccount.setOnClickListener {
+            if (cookie.isNullOrEmpty()) {
+                val intent = Intent(activity, LoginActivity::class.java)
+                startActivity(intent)
+            }
+        }
+        tvCollect.setOnClickListener {
+            val intent = if (cookie.isNullOrEmpty()) {
+                Intent(activity, LoginActivity::class.java)
+            } else {
+                Intent(activity, CollectActivity::class.java)
+            }
+            startActivity(intent)
         }
     }
 

@@ -10,6 +10,8 @@ import java.lang.reflect.Type
 
 abstract class ResponseCallback<T : Response<*>> : IResponse<T> {
 
+    var result: T? = null
+
     companion object {
         private val handler = Handler(Looper.getMainLooper())
         private val gson: Gson = GsonBuilder()
@@ -30,7 +32,8 @@ abstract class ResponseCallback<T : Response<*>> : IResponse<T> {
 
     }
 
-    override fun onResponse(data: String?, type: Type) {
+    override fun onResponse(response: okhttp3.Response, type: Type) {
+        val data = response.body()?.string()
         if (data?.isNotEmpty() == true) {
             val state = gson.fromJson(data, HttpCode::class.java)
             if (state.errorCode != "0") {
@@ -40,7 +43,7 @@ abstract class ResponseCallback<T : Response<*>> : IResponse<T> {
                 }
             } else {
                 try {
-                    val result = gson.fromJson<T>(data, type)
+                    result = gson.fromJson<T>(data, type)
                     handler.post {
                         onSuccess(result)
                     }

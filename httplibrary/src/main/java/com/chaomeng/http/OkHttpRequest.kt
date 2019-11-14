@@ -136,7 +136,7 @@ class OkHttpRequest private constructor() : IRequest, LifecycleObserver {
                 }
 
                 override fun onResponse(call: Call, resp: Response) {
-                    response.onResponse(resp.body()?.string(), type = dataType)
+                    response.onResponse(resp, type = dataType)
                 }
 
             })
@@ -182,7 +182,7 @@ class OkHttpRequest private constructor() : IRequest, LifecycleObserver {
                 }
 
                 override fun onResponse(call: Call, resp: Response) {
-                    response.onResponse(resp.body()?.string(),  type = dataType)
+                    response.onResponse(resp,  type = dataType)
                 }
 
             })
@@ -228,7 +228,7 @@ class OkHttpRequest private constructor() : IRequest, LifecycleObserver {
                 }
 
                 override fun onResponse(call: Call, resp: Response) {
-                    response.onResponse(resp.body()?.string(),  type = dataType)
+                    response.onResponse(resp,  type = dataType)
                 }
 
             })
@@ -274,7 +274,7 @@ class OkHttpRequest private constructor() : IRequest, LifecycleObserver {
                 }
 
                 override fun onResponse(call: Call, resp: Response) {
-                    response.onResponse(resp.body()?.string(),  type = dataType)
+                    response.onResponse(resp,  type = dataType)
                 }
 
             })

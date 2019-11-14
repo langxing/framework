@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.OnLifecycleEvent
 import com.chaomeng.HttpModule
 import com.chaomeng.utils.NetworkManager
@@ -24,6 +25,11 @@ class Task<T>(private val call: Call<T>) : LifecycleObserver {
 
     fun bindLifecycle(activity: AppCompatActivity): Task<T> {
         activity.lifecycle.addObserver(this)
+        return this
+    }
+
+    fun bindLifecycle(lifecycleOwner: LifecycleOwner): Task<T> {
+        lifecycleOwner.lifecycle.addObserver(this)
         return this
     }
 

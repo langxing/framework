@@ -3,7 +3,9 @@ package com.chaomeng.androidframework.utils
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
+import android.util.Base64
 import com.chaomeng.androidframework.App
+import java.io.*
 
 class CacheManager private constructor(){
     private var sharedPreferences: SharedPreferences? = null
@@ -35,9 +37,7 @@ class CacheManager private constructor(){
         if (sharedPreferences == null) {
             throw NullPointerException("请先调用initCache初始化")
         }
-        editor?.let {
-            it.putString(key, value)
-        }
+        editor?.putString(key, value)
         return instance
     }
 
@@ -46,6 +46,33 @@ class CacheManager private constructor(){
             throw NullPointerException("请先调用initCache初始化")
         }
         return sharedPreferences?.getString(key, "")
+    }
+
+    fun <T> putObject(key: String, t: T): CacheManager {
+        try {
+            val baos = ByteArrayOutputStream()
+            val oos = ObjectOutputStream(baos)
+            //把对象写到流里
+            oos.writeObject(t)
+            val temp = String(Base64.encode(baos.toByteArray(), Base64.DEFAULT))
+            editor?.putString(key, temp)
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+        return instance
+    }
+
+    fun <T> getObject(key: String): T? {
+        val temp = sharedPreferences?.getString(key, "")
+        val bais =  ByteArrayInputStream(Base64.decode(temp?.toByteArray(), Base64.DEFAULT))
+        var t: T? = null
+        try {
+            val ois = ObjectInputStream(bais)
+            t = ois.readObject() as T?
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return t
     }
 
     fun commit() {

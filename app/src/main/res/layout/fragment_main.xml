@@ -1,37 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.slidingpanelayout.widget.SlidingPaneLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="200dp"
+        android:layout_height="match_parent">
+        <View android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="#4269E0"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/tvAccount"/>
+        <ImageView
+            android:id="@+id/ivHead"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="30dp"
+            android:src="@mipmap/ic_cat"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+        <TextView
+            android:id="@+id/tvAccount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="点击登录"
+            app:layout_constraintLeft_toLeftOf="@+id/ivHead"
+            app:layout_constraintTop_toBottomOf="@+id/ivHead"/>
 
-    <com.stx.xhb.androidx.XBanner
-        android:id="@+id/xbanner"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        app:AutoPlayTime="3000"
-        app:pointsContainerBackground="#44aaaaaa"
-        app:pointsPosition="RIGHT"
-        app:tipTextSize="12sp"
-        app:pageChangeDuration="800"/>
-
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
-        android:id="@+id/refreshLayout"
+        <TextView android:id="@+id/tvCollect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:drawableLeft="@mipmap/ic_collect"
+            android:text="我的收藏"
+            app:layout_constraintTop_toBottomOf="@+id/view"
+            app:layout_constraintLeft_toLeftOf="@+id/ivHead"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:srlAccentColor="@android:color/white"
-        app:srlEnablePreviewInEditMode="true">
-        <com.scwang.smartrefresh.layout.header.ClassicsHeader
+        android:orientation="vertical">
+
+        <com.stx.xhb.androidx.XBanner
+            android:id="@+id/xbanner"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#eeeeee"/>
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerview"
+            android:layout_height="150dp"
+            app:AutoPlayTime="3000"
+            app:pageChangeDuration="800"
+            app:pointsContainerBackground="#44aaaaaa"
+            app:pointsPosition="RIGHT"
+            app:tipTextSize="12sp" />
+
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/refreshLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-        <com.scwang.smartrefresh.layout.footer.ClassicsFooter
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#eeeeee"/>
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
-</LinearLayout>
+            android:layout_height="match_parent"
+            app:srlAccentColor="@android:color/white"
+            app:srlEnablePreviewInEditMode="true">
+
+            <com.scwang.smartrefresh.layout.header.ClassicsHeader
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#eeeeee" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <com.scwang.smartrefresh.layout.footer.ClassicsFooter
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#eeeeee" />
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+    </LinearLayout>
+</androidx.slidingpanelayout.widget.SlidingPaneLayout>

@@ -40,7 +40,6 @@ class App : Application() {
             .readTimeout(10, TimeUnit.SECONDS)
             .writeTimeout(10, TimeUnit.SECONDS)
             .addHeader("id" to 2)
-            .addParams("token" to "219389ur8tu8yeqw")
             .build()
         RetrofitManager.Builder()
             .client(okHttpClient)
