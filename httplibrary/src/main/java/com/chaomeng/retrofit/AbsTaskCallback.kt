@@ -20,14 +20,14 @@ abstract class AbsTaskCallback<T> : TaskCallback<T> {
         if (httpCode == 200) {
             onSuccess(response.body())
         } else {
-            onError(HttpCode.mapIntValue(httpCode), null, response.message())
+            onError(response, HttpCode.mapIntValue(httpCode), null, response.message())
         }
     }
 
     override fun onError(t: Throwable) {
         if(t is JsonParseException || t is JSONException || t is ParseException) {
             val message = "数据解析异常"
-            onError(HttpCode.STATUS_OK,
+            onError(null, HttpCode.STATUS_OK,
                 ApiErrorException.CODE_JSON_PARSE_ERR, message)
         } else if(t is HttpException) {
             var message: String? = null
@@ -47,7 +47,7 @@ abstract class AbsTaskCallback<T> : TaskCallback<T> {
             }
 
             val httpCode = HttpCode.mapIntValue(t.code())
-            onError(httpCode, null, message)
+            onError(null, httpCode, null, message)
         } else if(t is UnknownHostException || t is ConnectException) {
             var message: String? = "域名解析失败"
             var code: HttpCode = HttpCode.DNS_ERROR
@@ -57,18 +57,23 @@ abstract class AbsTaskCallback<T> : TaskCallback<T> {
                 code = HttpCode.NETWORK_NOT_CONNECTED
             }
 
-            onError(code, null, message)
+            onError(null, code, null, message)
         } else if (t is RuntimeException) {
-            onError(HttpCode.STATUS_OK, null, t.message)
+            onError(null, HttpCode.STATUS_OK, null, t.message)
         } else {
             val message = "服务器繁忙，请稍后再试"
             val code: HttpCode = HttpCode.UNKNOWN
 
-            onError(code, null, message)
+            onError(null, code, null, message)
         }
     }
 
-    override fun onError(httpCode: HttpCode, businessCode: String?, error: String?) {
+    override fun onError(
+        response: Response<*>?,
+        httpCode: HttpCode,
+        businessCode: String?,
+        error: String?
+    ) {
         if (!TextUtils.isEmpty(error)) {
             Toast.makeText(HttpModule.newInstance.getApplication(), error, Toast.LENGTH_SHORT).show()
         }

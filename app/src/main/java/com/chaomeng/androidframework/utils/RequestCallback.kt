@@ -3,7 +3,6 @@ package com.chaomeng.androidframework.utils
 import com.chaomeng.androidframework.bean.WanAndroidResponse
 import com.chaomeng.common.HttpCode
 import com.chaomeng.retrofit.AbsTaskCallback
-import retrofit2.Response
 
 abstract class RequestCallback<T : WanAndroidResponse<*>> : AbsTaskCallback<T>() {
 
@@ -14,7 +13,7 @@ abstract class RequestCallback<T : WanAndroidResponse<*>> : AbsTaskCallback<T>()
         if (code == CODE_SUCCESS) {
             onSuccess(data)
         } else {
-            onError(HttpCode.STATUS_OK, code, data?.errorMsg)
+            onError(httpCode = HttpCode.STATUS_OK, businessCode = code, error = data?.errorMsg)
         }
     }
 

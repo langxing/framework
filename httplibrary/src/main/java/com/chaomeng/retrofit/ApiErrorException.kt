@@ -1,6 +1,7 @@
 package com.chaomeng.retrofit
 
 import com.chaomeng.common.HttpCode
+import retrofit2.Response
 
 interface ApiErrorException {
 
@@ -12,5 +13,11 @@ interface ApiErrorException {
     }
 
     fun onError(t: Throwable)
-    fun onError(httpCode: HttpCode, businessCode: String?, error: String?)
+    /**
+     * @param response 返回数据
+     * @param httpCode http协议code
+     * @param businessCode 业务返回code
+     * @param error 错误信息
+     */
+    fun onError(response: Response<*>? = null, httpCode: HttpCode, businessCode: String?, error: String?)
 }

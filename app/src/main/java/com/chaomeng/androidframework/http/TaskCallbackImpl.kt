@@ -12,7 +12,7 @@ abstract class TaskCallbackImpl<T : BaseResponse<*>> : AbsTaskCallback<T>() {
         if (code == CODE_SUCCESS) {
             onSuccess(data)
         } else {
-            onError(HttpCode.STATUS_OK, code, data?.msg)
+            onError(httpCode = HttpCode.STATUS_OK, businessCode = code, error = data?.msg)
         }
     }
 
