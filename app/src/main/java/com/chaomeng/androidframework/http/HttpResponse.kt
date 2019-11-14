@@ -1,10 +1,11 @@
-package com.chaomeng.http
+package com.chaomeng.androidframework.http
 
 import android.os.Handler
 import android.os.Looper
 import com.chaomeng.HttpModule
 import android.text.TextUtils
 import android.widget.Toast
+import com.chaomeng.http.IResponse
 import com.chaomeng.jsondeserializer.*
 import com.chaomeng.retrofit.HttpState
 import com.google.gson.Gson
@@ -13,7 +14,8 @@ import okhttp3.Response
 import java.lang.Exception
 import java.lang.reflect.Type
 
-abstract class HttpResponse<T: BaseResponse<*>> : IResponse<T> {
+abstract class HttpResponse<T: BaseResponse<*>> :
+    IResponse<T> {
 
     companion object {
         private val handler = Handler(Looper.getMainLooper())

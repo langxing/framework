@@ -32,7 +32,6 @@ dependencies {
     implementation "com.squareup.okhttp3:logging-interceptor:${versions.dependencies.okhttpVersion}"
     implementation "androidx.recyclerview:recyclerview:${versions.dependencies.recyclerviewVersion}"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.dependencies.kotlinVersion}"
-    implementation 'com.github.xiaohaibin:XBanner:androidx_v1.0.2'
     implementation "com.github.bumptech.glide:glide:${versions.dependencies.glideVersion}"
     implementation "org.jetbrains.anko:anko-commons:${versions.dependencies.ankoVersion}"
     implementation "com.hjq:xxpermissions:${versions.dependencies.permissionsVersion}"

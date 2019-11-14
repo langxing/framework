@@ -4,17 +4,11 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import com.chaomeng.androidframework.RequestManager
 import com.chaomeng.androidframework.bean.ProjectBean
-import com.chaomeng.androidframework.bean.WanAndroidResponse
 import com.chaomeng.androidframework.common.BaseViewModel
 import com.chaomeng.androidframework.common.Constant
 import com.chaomeng.androidframework.http.Response
 import com.chaomeng.androidframework.http.ResponseCallback
-import com.chaomeng.androidframework.service.MineService
 import com.chaomeng.androidframework.utils.CacheManager
-import com.chaomeng.androidframework.utils.RequestCallback
-import com.chaomeng.retrofit.RetrofitManager
-import com.chaomeng.retrofit.TaskCallbackImpl
-import com.chaomeng.retrofit.ThreadSwitcher
 
 class CollectViewModel(private val lifecycleOwner: LifecycleOwner) : BaseViewModel(lifecycleOwner) {
 

@@ -1,4 +1,4 @@
-package com.chaomeng.retrofit
+package com.chaomeng.androidframework.http
 
 import android.text.TextUtils
 import android.view.View
@@ -9,8 +9,9 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import com.chaomeng.HttpModule
-import com.chaomeng.common.BaseResponse
 import com.chaomeng.common.HttpCode
+import com.chaomeng.retrofit.AbsObserver
+import com.chaomeng.retrofit.ApiErrorException
 import com.google.gson.JsonParseException
 import io.reactivex.disposables.Disposable
 import org.json.JSONException
@@ -25,6 +26,8 @@ abstract class RequestObserver<T : BaseResponse<*>> : AbsObserver<T>, LifecycleO
     private lateinit var disposable: Disposable
 
     constructor()
+
+    private val CODE_SUCCESS = "200"
 
     constructor(activity: AppCompatActivity): this() {
         activity.lifecycle.addObserver(this)
@@ -55,7 +58,7 @@ abstract class RequestObserver<T : BaseResponse<*>> : AbsObserver<T>, LifecycleO
 
     override fun onNext(t: T) {
         val code = t.code
-        if (code == TaskCallback.CODE_SUCCESS) {
+        if (code == CODE_SUCCESS) {
             onSuccess(t)
         } else {
             onError(HttpCode.STATUS_OK, null, t.msg)
@@ -65,7 +68,8 @@ abstract class RequestObserver<T : BaseResponse<*>> : AbsObserver<T>, LifecycleO
     override fun onError(t: Throwable) {
         if(t is JsonParseException || t is JSONException || t is ParseException) {
             val message = "数据解析异常"
-            onError(HttpCode.STATUS_OK, ApiErrorException.CODE_JSON_PARSE_ERR, message)
+            onError(HttpCode.STATUS_OK,
+                ApiErrorException.CODE_JSON_PARSE_ERR, message)
         } else if(t is HttpException) {
             var message: String? = null
 

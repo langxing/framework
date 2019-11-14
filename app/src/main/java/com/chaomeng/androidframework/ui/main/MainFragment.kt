@@ -1,10 +1,13 @@
 package com.chaomeng.androidframework.ui.main
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableList
 import androidx.fragment.app.Fragment
@@ -21,6 +24,7 @@ import com.chaomeng.androidframework.common.ViewModelFactory
 import com.chaomeng.androidframework.ui.collect.CollectActivity
 import com.chaomeng.androidframework.ui.login.LoginActivity
 import com.chaomeng.androidframework.utils.CacheManager
+import com.chaomeng.androidframework.utils.ImageLoader
 import kotlinx.android.synthetic.main.fragment_main.*
 
 class MainFragment : Fragment() {
@@ -29,6 +33,9 @@ class MainFragment : Fragment() {
     private var cookie: String? = null
     private var loginInfo: LoginInfo? = null
     private var articleList = ObservableArrayList<ArticleBean.Article>()
+
+    private var accountTv: TextView? = null
+
     private val model: MainViewModel by lazy {
         ViewModelProviders.of(this, ViewModelFactory(this)).get(MainViewModel::class.java)
     }
@@ -45,16 +52,29 @@ class MainFragment : Fragment() {
         super.onResume()
         cookie = CacheManager.get().getString(Constant.KEY_COOKIE)
         loginInfo = CacheManager.get().getObject<LoginInfo>(Constant.KEY_LOGININFO)
-        tvAccount.text = if (cookie.isNullOrEmpty()) "未登录" else loginInfo?.phone
+        accountTv?.text = if (cookie.isNullOrEmpty()) "未登录" else loginInfo?.publicName
     }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         model.queryData()
         model.queryBanner()
         recyclerview.adapter = Adapter(articleList)
         recyclerview.layoutManager = LinearLayoutManager(context)
+        banner.setImageLoader(object: com.youth.banner.loader.ImageLoader() {
+            override fun displayImage(context: Context?, path: Any?, imageView: ImageView?) {
+                (path as Banner?)?.let {
+                    ImageLoader.get()
+                        .with(this@MainFragment)
+                        .load(it.imagePath)
+                        .defaultOptions()
+                        .into(imageView!!)
+                }
+            }
+
+        })
         model.bannerList.observe(this, Observer<List<Banner>> {
-            xbanner.setBannerData(it)
+            banner.setImages(it).start()
         })
         model.articleList.observe(this, Observer<List<ArticleBean.Article>> {
             if (mPageIndex == 0) {
@@ -66,6 +86,11 @@ class MainFragment : Fragment() {
             articleList.addAll(it)
             mPageIndex ++
         })
+        model.isLogout.observe(this, Observer<Boolean> {
+            if (it) {
+                accountTv?.text = "未登录"
+            }
+        })
         refreshLayout.setOnRefreshListener {
             mPageIndex = 0
             model.queryData()
@@ -73,19 +98,29 @@ class MainFragment : Fragment() {
         refreshLayout.setOnLoadMoreListener {
             model.queryData(mPageIndex)
         }
-        tvAccount.setOnClickListener {
+        navigationView.setNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.tvCollect -> {
+                    val intent = if (cookie.isNullOrEmpty()) {
+                        Intent(activity, LoginActivity::class.java)
+                    } else {
+                        Intent(activity, CollectActivity::class.java)
+                    }
+                    startActivity(intent)
+                }
+                R.id.tvLogout -> {
+                    model.logout()
+                }
+            }
+            return@setNavigationItemSelectedListener true
+        }
+        accountTv = navigationView.getHeaderView(0).findViewById(R.id.tvAccount)
+        accountTv?.setOnClickListener {
+            cookie = CacheManager.get().getString(Constant.KEY_COOKIE)
             if (cookie.isNullOrEmpty()) {
                 val intent = Intent(activity, LoginActivity::class.java)
                 startActivity(intent)
             }
-        }
-        tvCollect.setOnClickListener {
-            val intent = if (cookie.isNullOrEmpty()) {
-                Intent(activity, LoginActivity::class.java)
-            } else {
-                Intent(activity, CollectActivity::class.java)
-            }
-            startActivity(intent)
         }
     }
 

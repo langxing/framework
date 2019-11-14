@@ -6,6 +6,6 @@ data class UserInfo(val id: String,
                     val publicName: String) {
 
     override fun toString(): String {
-        return "id=$id, nickname=$nickname, username= $username, publicName=$publicName"
+        return "id=$id, publicName=$nickname, username= $username, publicName=$publicName"
     }
 }

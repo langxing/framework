@@ -3,17 +3,18 @@ package com.chaomeng.androidframework.ui.main
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import com.chaomeng.androidframework.RequestManager
-import com.chaomeng.androidframework.bean.ArticleBean
-import com.chaomeng.androidframework.bean.Banner
-import com.chaomeng.androidframework.bean.Category
-import com.chaomeng.androidframework.bean.ProjectBean
-import com.chaomeng.androidframework.bean.SystemBean
+import com.chaomeng.androidframework.bean.*
 import com.chaomeng.androidframework.common.BaseViewModel
 import com.chaomeng.androidframework.http.Response
 import com.chaomeng.androidframework.http.ResponseCallback
+import com.chaomeng.androidframework.service.LoginService
+import com.chaomeng.androidframework.utils.CacheManager
+import com.chaomeng.androidframework.utils.RequestCallback
+import com.chaomeng.retrofit.RetrofitManager
 
 class MainViewModel(private val lifecycleOwner: LifecycleOwner) : BaseViewModel(lifecycleOwner) {
 
+    val isLogout = MutableLiveData<Boolean>()
     val bannerList = MutableLiveData<List<Banner>>()
     val systemList = MutableLiveData<List<SystemBean>>()
     val categoryList = MutableLiveData<List<Category>>()
@@ -99,4 +100,18 @@ class MainViewModel(private val lifecycleOwner: LifecycleOwner) : BaseViewModel(
             })
     }
 
+    fun logout() {
+        RetrofitManager.get()
+            .setUrl("https://www.wanandroid.com/")
+            .create(LoginService::class.java)
+            .logout()
+            .bindLifecycle(lifecycleOwner)
+            .execute(object: RequestCallback<WanAndroidResponse<Any>>() {
+                override fun onSuccess(data: WanAndroidResponse<Any>?) {
+                    CacheManager.get().clear()
+                    isLogout.postValue(true)
+                }
+
+            })
+    }
 }

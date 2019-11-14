@@ -32,7 +32,7 @@ class ProjectFragment : Fragment() {
         model.queryCategory()
         model.categoryList.observe(this, Observer<List<Category>> {
 //            it.forEachIndexed { index, category ->
-//                tablayout.addTab(tablayout.newTab().setText(category.name).setTag(index))
+//                tablayout.addTab(tablayout.newTab().setText(category.publicName).setTag(index))
 //            }
             viewpager.adapter!!.notifyDataSetChanged()
             viewpager.offscreenPageLimit = model.categoryList.value!!.size

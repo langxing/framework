@@ -4,11 +4,9 @@ import com.chaomeng.androidframework.bean.LoginInfo
 import com.chaomeng.androidframework.bean.Meitu
 import com.chaomeng.androidframework.bean.UserInfo
 import com.chaomeng.androidframework.bean.WanAndroidResponse
-import com.chaomeng.common.BaseResponse
-import com.chaomeng.retrofit.RequestObserver
+import com.chaomeng.androidframework.http.BaseResponse
 import com.chaomeng.retrofit.Task
 import io.reactivex.Observable
-import io.reactivex.Observer
 import retrofit2.http.*
 
 interface HomeService {

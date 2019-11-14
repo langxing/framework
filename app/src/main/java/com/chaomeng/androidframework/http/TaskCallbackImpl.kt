@@ -1,10 +1,11 @@
-package com.chaomeng.retrofit
+package com.chaomeng.androidframework.http
 
 import android.text.TextUtils
 import android.widget.Toast
 import com.chaomeng.HttpModule
-import com.chaomeng.common.BaseResponse
 import com.chaomeng.common.HttpCode
+import com.chaomeng.retrofit.ApiErrorException
+import com.chaomeng.retrofit.TaskCallback
 import com.google.gson.JsonParseException
 import org.json.JSONException
 import retrofit2.HttpException
@@ -16,12 +17,16 @@ import java.text.ParseException
 
 abstract class TaskCallbackImpl<T : BaseResponse<*>> : TaskCallback<T> {
 
+    companion object {
+        const val CODE_SUCCESS = "200"
+    }
+
     override fun onResponse(response: Response<T>) {
         val data = response.body()
         val httpCode = response.code()
         if (httpCode == 200) {
             val code = data?.code
-            if (code == TaskCallback.CODE_SUCCESS) {
+            if (code == CODE_SUCCESS) {
                 onSuccess(data)
             } else {
                 onError(HttpCode.STATUS_OK, code, data?.msg)
@@ -34,7 +39,8 @@ abstract class TaskCallbackImpl<T : BaseResponse<*>> : TaskCallback<T> {
     override fun onError(t: Throwable) {
         if(t is JsonParseException || t is JSONException || t is ParseException) {
             val message = "数据解析异常"
-            onError(HttpCode.STATUS_OK, ApiErrorException.CODE_JSON_PARSE_ERR, message)
+            onError(HttpCode.STATUS_OK,
+                ApiErrorException.CODE_JSON_PARSE_ERR, message)
         } else if(t is HttpException) {
             var message: String? = null
 

@@ -3,6 +3,7 @@ package com.chaomeng.androidframework.utils
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
+import android.os.Parcelable
 import android.util.Base64
 import com.chaomeng.androidframework.App
 import java.io.*
@@ -48,7 +49,7 @@ class CacheManager private constructor(){
         return sharedPreferences?.getString(key, "")
     }
 
-    fun <T> putObject(key: String, t: T): CacheManager {
+    fun <T : Serializable> putObject(key: String, t: T): CacheManager {
         try {
             val baos = ByteArrayOutputStream()
             val oos = ObjectOutputStream(baos)
@@ -75,10 +76,20 @@ class CacheManager private constructor(){
         return t
     }
 
+    @SuppressLint("CommitPrefEdits")
+    fun remove(key: String): CacheManager {
+        sharedPreferences?.edit()?.remove(key)
+        return this
+    }
+
+    fun clear() {
+        sharedPreferences?.edit()?.clear()?.apply()
+    }
+
     fun commit() {
         if (editor == null) {
             throw NullPointerException("请先调用initCache初始化")
         }
-        editor?.commit()
+        editor?.apply()
     }
 }

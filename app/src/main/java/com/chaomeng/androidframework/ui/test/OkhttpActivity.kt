@@ -8,9 +8,9 @@ import androidx.appcompat.app.AppCompatActivity
 import com.chaomeng.androidframework.R
 import com.chaomeng.androidframework.RequestManager
 import com.chaomeng.androidframework.bean.MusicStation
-import com.chaomeng.http.BaseResponse
+import com.chaomeng.androidframework.http.BaseResponse
 import com.chaomeng.common.DownloadListener
-import com.chaomeng.http.HttpResponse
+import com.chaomeng.androidframework.http.HttpResponse
 import com.chaomeng.http.UploadListener
 import com.hjq.permissions.OnPermission
 import com.hjq.permissions.XXPermissions

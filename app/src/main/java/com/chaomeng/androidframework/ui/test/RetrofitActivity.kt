@@ -12,13 +12,13 @@ import com.chaomeng.androidframework.bean.LoginInfo
 import com.chaomeng.androidframework.bean.Meitu
 import com.chaomeng.androidframework.bean.UserInfo
 import com.chaomeng.androidframework.bean.WanAndroidResponse
+import com.chaomeng.androidframework.http.BaseResponse
 import com.chaomeng.androidframework.service.HomeService
 import com.chaomeng.androidframework.utils.RequestCallback
 import com.chaomeng.androidframework.widget.LoadingDialog
-import com.chaomeng.common.BaseResponse
-import com.chaomeng.retrofit.RequestObserver
+import com.chaomeng.androidframework.http.RequestObserver
 import com.chaomeng.retrofit.RetrofitManager
-import com.chaomeng.retrofit.TaskCallbackImpl
+import com.chaomeng.androidframework.http.TaskCallbackImpl
 import com.chaomeng.retrofit.ThreadSwitcher
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_retrofit.*
@@ -58,7 +58,7 @@ class RetrofitActivity : AppCompatActivity() {
                 .execute(object: TaskCallbackImpl<BaseResponse<List<Meitu>>>() {
                     override fun onSuccess(data: BaseResponse<List<Meitu>>?) {
                         if (data?.data != null) {
-                            meituList.addAll(data.data)
+                            meituList.addAll(data.data!!)
                             recyclerView.adapter = MeituAdapter(meituList)
                             recyclerView.layoutManager = LinearLayoutManager(this@RetrofitActivity)
                             recyclerView.addItemDecoration(DividerItemDecoration(this@RetrofitActivity, LinearLayoutManager.VERTICAL))
