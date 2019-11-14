@@ -6,7 +6,7 @@ import io.reactivex.disposables.Disposable
 import okhttp3.ResponseBody
 import java.io.*
 
-class DownloadObserver(private val file: File, private var listener: DownloadListener? = null) : AbsObserver<ResponseBody> {
+class DownloadObserver(private val file: File, private var listener: DownloadListener? = null) : IObserver<ResponseBody> {
 
     override fun onSuccess(response: ResponseBody?) {
         response?.let {
