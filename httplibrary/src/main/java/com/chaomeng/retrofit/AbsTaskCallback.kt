@@ -14,7 +14,6 @@ import java.text.ParseException
 
 abstract class AbsTaskCallback<T> : TaskCallback<T> {
 
-
     override fun onError(t: Throwable) {
         if(t is JsonParseException || t is JSONException || t is ParseException) {
             val message = "数据解析异常"

@@ -7,12 +7,14 @@ import retrofit2.Response
 
 abstract class RequestCallback<T : WanAndroidResponse<*>> : AbsTaskCallback<T>() {
 
+    private val CODE_SUCCESS = "0"
+
     override fun onResponse(response: Response<T>) {
         val data = response.body()
         val httpCode = response.code()
         if (httpCode == 200) {
             val code = data?.errorCode
-            if (code == "0") {
+            if (code == CODE_SUCCESS) {
                 onSuccess(data)
             } else {
                 onError(HttpCode.STATUS_OK, code, data?.errorMsg)

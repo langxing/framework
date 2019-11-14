@@ -6,9 +6,7 @@ import retrofit2.Response
 
 abstract class TaskCallbackImpl<T : BaseResponse<*>> : AbsTaskCallback<T>() {
 
-    companion object {
-        const val CODE_SUCCESS = "200"
-    }
+    private val CODE_SUCCESS = "200"
 
     override fun onResponse(response: Response<T>) {
         val data = response.body()
